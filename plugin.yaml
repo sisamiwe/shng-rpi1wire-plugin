@@ -34,7 +34,7 @@ parameters:
         type: str
         default: '/sys/bus/w1/devices'
         description:
-            de: 'Verzeichnis des Onewire'
+            de: 'Verzeichnis des Onewire, in dem der RPi die Werte der 1-wire Sensoren hält'
             en: 'Directory of onewire provided'
 
 item_attributes:
