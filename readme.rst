@@ -169,7 +169,7 @@ rpi1wire Items
 
 Das Webinterface zeigt die Items an, für die rpi1wire Attribute konfiguriert ist.
 
-.. image:: user_doc/assets/webif_tab1.jpg
+.. image:: webif/static/img/webif_tab1.jpg
    :class: screenshot
 
 rpi1wire Sensores
@@ -177,5 +177,5 @@ rpi1wire Sensores
 
 Das Webinterface zeigt alle gefundenen Sensoren mit der jeweiligen ID an.
 
-.. image:: user_doc/assets/webif_tab2.jpg
+.. image:: webif/static/img/webif_tab2.jpg
    :class: screenshot

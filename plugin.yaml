@@ -64,7 +64,6 @@ item_attributes:
                 - 'List showing all found sensors'
                 - 'Count of all found sensors'
 
-
 item_structs: NONE
     # Definition of item-structure templates for this plugin (enter 'item_structs: NONE', if section should be empty)
 
