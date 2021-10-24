@@ -37,7 +37,7 @@ class Rpi1Wire(SmartPlugin):
     the update functions for the items
     """
 
-    PLUGIN_VERSION = '1.7.2'
+    PLUGIN_VERSION = '1.8.0'
 
     def __init__(self, sh, *args, **kwargs):
         """
@@ -105,12 +105,15 @@ class Rpi1Wire(SmartPlugin):
         self.update_basics()
 
     def update_basics(self):
-    
+        """
+        Method to update basic information of plugin like count of sensore and sensor list
+        """
+
         if self.sysitems.get('count'):
             anz = self.get_sh().return_item(self.sysitems['count'])
             anz(int(self.anz_sensors),'rpi1wire')
             self.logger.debug("rpi1wire-item sensors value = {0}".format(self.anz_sensors))
-            
+
         if self.sysitems.get('list'):
             ids = self.get_sh().return_item(self.sysitems['list'])
             ids(str(self.sensors).replace("\'",""),'rpi1wire')
@@ -136,7 +139,7 @@ class Rpi1Wire(SmartPlugin):
                         with the item, caller, source and dest as arguments and in case of the knx plugin the value
                         can be sent to the knx with a knx write function within the knx plugin.
         """
-            
+
         if self.has_iattr(item.conf, 'rpi1wire_sys'):
             type = self.get_iattr_value(item.conf, 'rpi1wire_sys')
             if type == 'update':
@@ -206,6 +209,9 @@ class Rpi1Wire(SmartPlugin):
                 return None
 
     def update_values(self):
+        """
+        Updates the values in plugin dict from 1wire directory
+        """
          for sensor in self.sensors:
             id = self.sensors[sensor]
             value = self.getvalue(id)
@@ -221,9 +227,9 @@ class Rpi1Wire(SmartPlugin):
             except:
                 self.logger.info("sensor {0} has no item".format(id))
 
-    def get_sensors(self): #Hier werden die angeschlossenen Sensoren gesucht und in self.sensors, self.values und self._sensordaten eingetragen
+    def get_sensors(self):
         """
-        If successful returns a list of sensors starting at given param dirname
+        Search for connected sensors and insert into self.sensors, self.values and self._sensordaten
         """
         objects = self.folder_objects(self.dirname)
         i=1
@@ -248,8 +254,9 @@ class Rpi1Wire(SmartPlugin):
         else:
             self.logger.warning("rpi1wire plugin did not find directory at {0}".format(self.dirname))
 
-    def folder_objects(self, dirname, otype="all"):  # Sucht im übergebenen Verzeichnis nach Sensoren und übergibt diese als object
+    def folder_objects(self, dirname, otype="all"):
         """
+        Search in given directory for sensors and returs these as object
         If successful returns a list of sensors starting at given param dirname
         """
         if (os.path.exists(dirname) == False or
@@ -270,7 +277,7 @@ class Rpi1Wire(SmartPlugin):
             return result
 
 
-    def getvalue(self, id): #Liest den Wert des Sensors mit der übergebenen id
+    def getvalue(self, id):
         """
         reads a single sensor for a given id
         Source like here https://www.raspberrypi-spy.co.uk/2013/03/raspberry-pi-1-wire-digital-thermometer-sensor/
@@ -295,6 +302,9 @@ class Rpi1Wire(SmartPlugin):
             return 99999
 
     def update_sensors(self):
+        """
+        Update of all sensor values
+        """
         self.update = True
         self.sensors = {}
         self.anz_sensors = 0
@@ -310,6 +320,9 @@ class Rpi1Wire(SmartPlugin):
         self.update = False
 
     def search_item(self): #Durchsucht die Items nach den Attributen des Plugins
+        """
+        Search within all items for plugin specific attributes and add relevant items to plugin dict
+        """
         items = self.get_sh().return_items()
         for item in items:
             if self.has_iattr(item.conf, 'rpi1wire_id'):
@@ -341,6 +354,9 @@ class Rpi1Wire(SmartPlugin):
         self.logger.info("{0} rpi1wire-items registriert".format(len(self._sensordaten)))
 
     def save_sysitems(item):
+        """
+        Search within all items for plugin specific attribute 'rpi1wire_sys' and add relevant items to plugin dict
+        """
         type = self.get_iattr_value( item.conf, 'rpi1wire_sys')
         try:
             path = item._path
@@ -429,7 +445,7 @@ class WebInterface(SmartPluginWebIf):
         tmpl = self.tplenv.get_template('index.html')
         # add values to be passed to the Jinja2 template eg: tmpl.render(p=self.plugin, interface=interface, ...)
         plgitems = []
-        
+
         for item in self.items.return_items():
             if any(elem in item.property.attributes  for elem in ["rpi1wire_id","rpi1wire_name","rpi1wire_sys"]):
                 plgitems.append(item)

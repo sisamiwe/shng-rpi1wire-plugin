@@ -2,8 +2,6 @@
 rpi1wire
 ========
 
-This is a shNG Plugin to connect 1-wire sensors directly connected to the Raspberry Pi.
-
 Information
 ===========
 
