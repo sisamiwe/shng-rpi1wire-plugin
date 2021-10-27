@@ -106,7 +106,7 @@ class Rpi1Wire(SmartPlugin):
 
     def update_basics(self):
         """
-        Method to update basic information of plugin like count of sensore and sensor list
+        Method to update basic information of plugin like count of sensor and sensor list
         """
 
         if self.sysitems.get('count'):
