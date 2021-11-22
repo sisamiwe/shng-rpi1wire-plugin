@@ -6,16 +6,18 @@ plugin:
         de: 'Plugin für den Rapberry Pi. Erlaubt den einfachen Zugriff auf 1-Wire Sensoren. Getestet mit Raspberry Pi B und dem Temperatursensor DS18B20'
         en: 'Plugin developed for the Raspberry Pi. It allows easy access to 1-Wire sensors. Tested with the Raspberry Pi B and the temperature sensor DS18B20'
         fr: 'Support de 1-Wire à travers Raspberry Pi sur SmartHomeNG v1.5 et plus'
-    maintainer: bmxp
+    maintainer: bmxp, sisamiwe
     tester: sisamiwe, ElektroRudi   # Who tests this plugin?
     state: develop                  # change to ready when done with development
     keywords: 1wire onewire raspberry pi dallas temperature sensor
     documentation: https://github.com/smarthomeNG/plugins/rpi1wire/Readme.md        # url of documentation (wiki) page
     support: https://knx-user-forum.de/forum/supportforen/smarthome-py/1451916-support-thread-für-rpi1wire-plugin
 
-    version: 1.8.0                  # Plugin version
+    version: 1.8.1                  # Plugin version
     sh_minversion: 1.5              # minimum shNG version to use this plugin
 #    sh_maxversion:                 # maximum shNG version to use this plugin (leave empty if latest)
+#    py_minversion: 3.6             # minimum Python version to use for this plugin
+#    py_maxversion:                 # maximum Python version to use for this plugin (leave empty if latest)
     multi_instance: False           # plugin supports multi instance
     restartable: True
     classname: Rpi1Wire             # class containing the plugin
