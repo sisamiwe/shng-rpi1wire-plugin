@@ -26,6 +26,7 @@
 #########################################################################
 
 import os
+import io
 
 from lib.model.smartplugin import SmartPlugin
 from lib.item import Items
@@ -59,6 +60,13 @@ class Rpi1Wire(SmartPlugin):
         # Call init code of parent class (SmartPlugin or MqttPlugin)
         super().__init__()
         if not self._init_complete:
+            return
+            
+        # check if shNG is running on Raspberry Pi
+        raspberry = self._is_raspberrypi()
+        if raspberry is False:
+            self.logger.error(f"Plugin '{self.get_shortname()}': Plugin just works with Raspberry Pi or equivalent.")
+            self._init_complete = False
             return
 
         # get the parameters for the plugin (as defined in metadata plugin.yaml):
@@ -281,3 +289,10 @@ class Rpi1Wire(SmartPlugin):
             update_item(False, self.get_shortname())
             self.logger.debug(f"Update of data and items done; Item <{update_item.id()}> set to <False>")
         self.update = False
+        
+    def _is_raspberrypi(self):
+        try:
+            with io.open('/sys/firmware/devicetree/base/model', 'r') as m:
+                if 'raspberry pi' in m.read().lower(): return True
+        except Exception: pass
+        return False
