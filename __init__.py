@@ -63,8 +63,7 @@ class Rpi1Wire(SmartPlugin):
             return
             
         # check if shNG is running on Raspberry Pi
-        raspberry = self._is_raspberrypi()
-        if raspberry is False:
+        if not self._is_raspberrypi():
             self.logger.error(f"Plugin '{self.get_shortname()}': Plugin just works with Raspberry Pi or equivalent.")
             self._init_complete = False
             return
