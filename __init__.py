@@ -157,8 +157,6 @@ class Rpi1Wire(SmartPlugin):
             self.logger.info(f"parse item: {item.id()}")
             addr = self.get_iattr_value(item.conf, 'rpi1wire_id')
             self.sensoritems[addr] = item
-            if addr not in self._sensordata:
-                self.logger.warning(f"Item <{item.id()}> definied for Sensor <{self.get_iattr_value(item.conf, 'rpi1wire_id')}>, but sensor not connected.")
 
     def parse_logic(self, logic):
         pass
